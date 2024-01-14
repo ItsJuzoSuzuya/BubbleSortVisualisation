@@ -3,12 +3,14 @@ import random
 import time
 
 start = time.time()
+waitTime = 0.02
 
 def bubbleSort(list):
     listSorted = False
     while listSorted == False:
         check = True
         for i in range(len(list) - 1):
+            time.sleep(waitTime)
             if list[i] > list[i+1]:
                 list[i], list[i+1] = list[i+1], list[i]
                 check = False 
