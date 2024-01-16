@@ -5,4 +5,6 @@ class MergeSort: public SortAlgorithm {
     
     public:
         void sort();
-}
+        void mergeSort(float* array, int begin, int end);
+        void merge(float* array, int begin, int middle, int end);
+};
