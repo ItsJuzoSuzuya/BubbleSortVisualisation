@@ -7,11 +7,13 @@ class BubbleSort:
     def sort(self, wait_time=0.02):
         start = time.time()
         listSorted = False
+        length = len(self.myList) - 1
 
         while not listSorted:
             check = True
-            for i in range(len(self.myList) - 1):
-                time.sleep(wait_time)
+            
+            for i in range(length):
+          #      time.sleep(wait_time)
                 if self.myList[i] > self.myList[i + 1]:
                     self.myList[i], self.myList[i + 1] = self.myList[i + 1], self.myList[i]
                     check = False
@@ -19,6 +21,6 @@ class BubbleSort:
                     
             if check:
                 listSorted = True
-
+            else: length -=  1
         end = time.time()
         print(end - start)

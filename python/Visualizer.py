@@ -3,7 +3,7 @@ import pygame
 class Visualizer:
     def __init__(self):
         self.screen = pygame.display.set_mode((1280, 720))
-        self.size = 40
+        self.size = 99
         self.max = 100
     def drawList(self, myList):
         self.screen.fill((0,0,0))

@@ -8,7 +8,7 @@ def main():
     running = True
 
     max_value = 100
-    size = 40
+    size = 99 
 
     sortingList = random.sample(range(1, max_value), size)
 
