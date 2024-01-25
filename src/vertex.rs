@@ -1,0 +1,12 @@
+#[derive(Copy, Clone)]
+pub struct Vertex {
+    pub position: (f32, f32),
+}
+
+implement_vertex!(Vertex, position);
+
+impl Vertex {
+    pub fn new(x: f32, y: f32) -> Vertex {
+        Vertex { position: (x, y) }
+    }
+}
