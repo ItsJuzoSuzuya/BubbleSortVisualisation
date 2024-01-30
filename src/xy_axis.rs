@@ -3,27 +3,35 @@ use crate::vertex::Vertex;
 pub const VERTICES: [Vertex; 8] = [
     Vertex {
         position: (0.0, 0.0),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (-0.9, -0.9),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (-0.9, -0.88),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (0.9, -0.88),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (0.9, -0.9),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (0.9, 0.9),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (0.88, 0.9),
+        color: (0.0, 0.0, 0.0),
     },
     Vertex {
         position: (0.88, -0.88),
+        color: (0.0, 0.0, 0.0),
     },
 ];
 

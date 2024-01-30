@@ -1027,6 +1027,7 @@ name = "sorting_visualizations"
 version = "0.1.0"
 dependencies = [
  "glium",
+ "lazy_static",
  "rand",
  "winit",
 ]
