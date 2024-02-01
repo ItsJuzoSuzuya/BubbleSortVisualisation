@@ -11,7 +11,7 @@ pub fn bubble_sort(list: &mut Vec<f64>, sender: Sender<(Vec<f64>, usize, bool)>)
             if list[i - 1] > list[i] {
                 list.swap(i - 1, i);
                 swapped = true;
-                sender.send((list.clone(), i - 1, false)).unwrap();
+                sender.send((list.clone(), i, false)).unwrap();
             }
         }
         if !swapped {

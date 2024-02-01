@@ -33,7 +33,7 @@ pub fn draw(
         let height = 0.9 * (value / 100.0);
         let mut is_red = false;
 
-        if swap_index + 1 == index && swap_index != 0 {
+        if swap_index == index {
             is_red = true;
         }
 
