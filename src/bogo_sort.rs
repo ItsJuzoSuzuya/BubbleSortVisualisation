@@ -11,7 +11,12 @@ pub fn bogo_sort(list: &mut Vec<f64>, sender: Sender<(Vec<f64>, usize, bool)>) {
         sender.send((list.to_vec(), 0, false)).unwrap();
     }
     sender.send((list.to_vec(), 0, true)).unwrap();
-    println!("{}", now.elapsed().unwrap().as_millis());
+    println!(
+        "{} {} {}",
+        "Time to finish: ",
+        now.elapsed().unwrap().as_millis(),
+        " ms"
+    );
 }
 
 fn is_sorted<T: PartialOrd>(slice: &[T]) -> bool {

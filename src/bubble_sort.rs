@@ -20,5 +20,10 @@ pub fn bubble_sort(list: &mut Vec<f64>, sender: Sender<(Vec<f64>, usize, bool)>)
         }
         list_len -= 1;
     }
-    println!("{}", now.elapsed().unwrap().as_millis());
+    println!(
+        "{} {} {}",
+        "Time to finish: ",
+        now.elapsed().unwrap().as_millis(),
+        " ms"
+    );
 }

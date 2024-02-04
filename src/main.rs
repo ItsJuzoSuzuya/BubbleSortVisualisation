@@ -1,4 +1,3 @@
-use core::f64;
 use std::{
     sync::mpsc,
     thread::spawn,
@@ -8,6 +7,7 @@ use std::{
 use bogo_sort::bogo_sort;
 use bubble_sort::bubble_sort;
 use merge_sort::merge_sort;
+use quick_sort::quick_sort;
 use rand::Rng;
 use winit::event::{Event, WindowEvent};
 
@@ -23,14 +23,14 @@ fn main() {
 
 fn create_window() {
     let mut list: Vec<f64> = vec![];
-    for _ in 0..7 {
+    for _ in 0..200 {
         list.push(rand::thread_rng().gen::<f64>() * 100.0);
     }
     let list_clone = list.clone();
 
     let event_loop = winit::event_loop::EventLoopBuilder::new()
         .build()
-        .expect("event loop building");
+        .expect("event loop builaing");
     let (window, display) = glium::backend::glutin::SimpleWindowBuilder::new()
         .with_title("Sorting Algorithms!")
         .build(&event_loop);
@@ -60,18 +60,11 @@ fn create_window() {
             color = vec4(vertex_color, 1.0);
         }
     "#;
-    let graph_positions = glium::VertexBuffer::new(&display, &xy_axis::VERTICES).unwrap();
-    let indices = glium::IndexBuffer::new(
-        &display,
-        glium::index::PrimitiveType::TrianglesList,
-        &xy_axis::INDICES,
-    )
-    .unwrap();
 
     let program =
         glium::Program::from_source(&display, vertex_shader, fragment_shader, None).unwrap();
 
-    spawn(move || bogo_sort(&mut list_clone.clone(), sender));
+    spawn(move || quick_sort(&mut list_clone.clone(), sender));
 
     let mut sorted = false;
     let is_sorted = false;
@@ -79,7 +72,6 @@ fn create_window() {
 
     let mut frame_counter = 0;
     let mut now = SystemTime::now();
-    let mut time_elapsed = Duration::new(0, 0);
 
     event_loop
         .run(move |ev, control_flow| match ev {
@@ -105,16 +97,9 @@ fn create_window() {
                         }
                     }
                 }
-                draw(
-                    &list,
-                    &display,
-                    &program,
-                    (&graph_positions, &indices),
-                    swap_index,
-                );
+                draw(&list, &display, &program, swap_index);
                 if frame_counter % 100 == 1 && frame_counter != 1 {
-                    time_elapsed = now.elapsed().unwrap();
-                    let fps = frame_counter as f64 / time_elapsed.as_secs_f64();
+                    let fps = frame_counter as f64 / now.elapsed().unwrap().as_secs_f64();
                     println!("{} {}", fps.round(), "fps");
                     now = SystemTime::now();
                     frame_counter = 0;
@@ -133,5 +118,5 @@ mod bogo_sort;
 mod bubble_sort;
 mod draw;
 mod merge_sort;
+mod quick_sort;
 mod vertex;
-mod xy_axis;

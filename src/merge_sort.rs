@@ -1,12 +1,25 @@
-use std::{fmt::Debug, sync::mpsc::Sender};
+use std::sync::mpsc::Sender;
 
-pub fn merge_sort<T: PartialOrd + Clone + Debug>(
+pub fn merge_sort<T: PartialOrd + Clone>(list: &mut Vec<T>, sender: Sender<(Vec<T>, usize, bool)>) {
+    let now = std::time::SystemTime::now();
+    let mut list_clone = list.clone();
+
+    _merge_sort(list, &mut list_clone, 0, sender.clone());
+    println!(
+        "{} {} {}",
+        "Time to finish: ",
+        now.elapsed().unwrap().as_millis(),
+        " ms"
+    );
+    sender.send((list.clone(), 0, true)).unwrap();
+}
+
+fn _merge_sort<T: PartialOrd + Clone>(
     root: &mut Vec<T>,
     list: &mut Vec<T>,
     start_index: usize,
     sender: Sender<(Vec<T>, usize, bool)>,
 ) {
-    let now = std::time::SystemTime::now();
     if list.len() <= 1 {
         return;
     }
@@ -15,21 +28,13 @@ pub fn merge_sort<T: PartialOrd + Clone + Debug>(
     let mut left = list[0..middle].to_vec();
     let mut right = list[middle..].to_vec();
 
-    merge_sort(root, &mut left, start_index, sender.clone());
-    merge_sort(root, &mut right, start_index + middle, sender.clone());
+    _merge_sort(root, &mut left, start_index, sender.clone());
+    _merge_sort(root, &mut right, start_index + middle, sender.clone());
 
     merge(root, list, &left, &right, start_index, sender.clone());
-    if list.len() == root.len() {
-        println!(
-            "{} {}",
-            "Time to finish: ",
-            now.elapsed().unwrap().as_millis()
-        );
-        sender.send((root.clone(), 0, true)).unwrap();
-    }
 }
 
-pub fn merge<T: PartialOrd + Clone + Debug>(
+pub fn merge<T: PartialOrd + Clone>(
     root: &mut Vec<T>,
     list: &mut Vec<T>,
     left: &Vec<T>,
